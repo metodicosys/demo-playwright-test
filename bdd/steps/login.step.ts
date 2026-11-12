@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { createBdd, test } from 'playwright-bdd';
 import { LoginPage } from '../page/loginpage';
+import { logger } from '../../base/logger';
 
 const { Given, When, Then } = createBdd(test);
 
@@ -19,6 +20,8 @@ When('Ingreso mi nombre de usuario y contraseña', async ({ page }) => {
   }
 
   await new LoginPage(page).enterCredentials(username, password);
+  logger.info('Credenciales ingresadas');
+  
 });
 
 When('Click en el boton de inicio de sesion', async ({ page }) => {

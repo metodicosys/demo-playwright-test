@@ -11,5 +11,8 @@
     "@types/node": "^26.6.6",
     "dotenv": "^18.0.10",
     "playwright-bdd": "^9.2.1"
+  },
+  "dependencies": {
+    "winston": "^3.19.0"
   }
 }
