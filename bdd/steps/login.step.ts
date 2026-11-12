@@ -1,15 +1,12 @@
 import 'dotenv/config';
-import { createBdd, test } from 'playwright-bdd';
-import { LoginPage } from '../page/loginpage';
+import { Given, When, Then } from '../fixtures/fixture';
 import { logger } from '../../base/logger';
 
-const { Given, When, Then } = createBdd(test);
-
-Given('Estoy en la pagina de inicio de sesion', async ({ page }) => {
-  await new LoginPage(page).open();
+Given('Estoy en la pagina de inicio de sesion', async ({ loginPage }) => {
+  await loginPage.open();
 });
 
-When('Ingreso mi nombre de usuario y contraseña', async ({ page }) => {
+When('Ingreso mi nombre de usuario y contraseña', async ({ loginPage }) => {
   const username = process.env.LOGIN_USERNAME;
   const password = process.env.LOGIN_PASSWORD;
 
@@ -19,15 +16,15 @@ When('Ingreso mi nombre de usuario y contraseña', async ({ page }) => {
     );
   }
 
-  await new LoginPage(page).enterCredentials(username, password);
+  await loginPage.enterCredentials(username, password);
   logger.info('Credenciales ingresadas');
-  
 });
 
-When('Click en el boton de inicio de sesion', async ({ page }) => {
-  await new LoginPage(page).submit();
+When('Click en el boton de inicio de sesion', async ({ loginPage }) => {
+  await loginPage.submit();
+  logger.info('Boton de inicio de sesion presionado');
 });
 
-Then('Deberia ser redirigido al dashboard', async ({ page }) => {
-  await new LoginPage(page).expectDashboard();
+Then('Deberia ser redirigido al dashboard', async ({ loginPage }) => {
+  await loginPage.expectDashboard();
 });
